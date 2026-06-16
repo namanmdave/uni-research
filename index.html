@@ -138,5 +138,112 @@ const programs=[
   {id:'edhpc',uni:'University of Edinburgh — EPCC',program:'High Performance Computing',degree:'M.Sc.',cat:'hpc',region:'uk',country:'Scotland / UK',tuition:'~£18–22k/yr (intl)',tc:'cf-high',dur:'1 year',lang:'English',status:'open',sl:'Open — September intake',ind:4,desc:'EPCC is the UK\'s leading supercomputing centre. Hands-on access to ARCHER2 (UK national supercomputer), Cirrus Tier-2, and GPU/FPGA clusters. Practically-focused — alumni hired by ARM, Intel, Amazon, and MathWorks.',partners:'ARM · Intel · Amazon · MathWorks · ARCHER2 · DiRAC',url:'https://study.ed.ac.uk/programmes/postgraduate-taught/187-high-performance-computing',note:'High tuition (~£18–22k/yr) for international students. Check Edinburgh Global Research Scholarships and EPCC bursaries. Also available as 2- or 3-year part-time online.'},
   {id:'eth',uni:'ETH Zürich',program:'Robotics, Systems & Control / Computational Science',degree:'M.Sc.',cat:'compute',region:'ch',country:'Switzerland',tuition:'~CHF 1,460/yr (~₹1.3L)',tc:'cf-low',dur:'18 months',lang:'English',status:'open',sl:'Open — competitive admission',ind:4,desc:'Ranked #7 globally (QS 2025). MSc in Robotics, Systems & Control and Computational Science & Engineering are the best fits. Extremely low tuition for a world top-10 university. Strong industry ties with ABB, Google Zürich, Microsoft Research, and Swiss space sector.',partners:'ABB · Google Zürich · Microsoft Research · RUAG Space · ESA-ESTEC',url:'https://ethz.ch/en/studies/master/application.html',note:'Living costs in Zürich are high (~CHF 2,000–2,500/month). ESOP scholarship available for exceptional candidates.'},
 
-  {id:'tohoku',uni:'Tohoku University',program:'Information Sciences / System Information Science',degree:'M.S.',cat:'compute',region:'jp',country:'Japan',tuition:'~JPY 535,800/yr (~₹3L)',tc:'cf-low',dur:'2 years',lang:'English (select programs)',status:'open',sl:'Open — MEXT scholarship route',ind:3,desc:'Japan\'s #3 university (THE). Graduate School of Information Sciences offers English-track programs covering AI, HPC, quantum computing, and data science. MEXT scholarship fully covers tuition + ~¥145,000/month stipend. Alumni at Hitachi, Mitsubishi, Canon, Fujitsu.',partners:'Hitachi · Mitsubishi · Canon · Fujitsu · RIKEN',url:'https://www.insc.tohoku.ac.jp/english/',note:'Contact a professor first before applying — Japanese system requires prior lab agreement. MEXT scholarship covers all fees + stipend if awarded.'},
-  {id:'kaist',uni:'KAIST',program:'Aerospace Engineering / Computer Science',degree:'M.S.',cat:'space',region:'kr',country:'South Korea',tuition:'Free + stipend (scholarship)',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — apply by Sep 2026',ind:4,desc:'Known as the MIT of Asia. Hanwha Aerospace has a joint Space Research Center on campus. Research in satellite systems, laser ISL, and autonomous systems. Full scholarsh
+  {id:'tohoku',uni:'Tohoku University',program:'Information Sciences / System Information Science',degree:'M.S.',cat:'compute',region:'jp',country:'Japan',tuition:'~JPY 535,800/yr (~₹3L)',tc:'cf-low',dur:'2 years',lang:'English (select programs)',status:'open',sl:'Open — MEXT scholarship route',ind:3,desc:'Japan\'s #3 university (THE). Graduate School of Information Sciences offers English-track programs covering AI, HPC, quantum computing, and data science. MEXT scholarship fully covers tuition + ~¥145,000/month stipend. Alumni at Hitachi, Mitsubishi, Canon, Fujitsu.',partners:'Hitachi · Mitsubishi · Canon · Fujitsu · RIKEN',url:'https://www.insc.tohoku.ac.jp/english/',note:'Contact a professor first before applying — Japanese system requires prior lab agreement. MEXT scholarship covers all fees + stipend if awarded'},
+  {id:'kaist',uni:'KAIST',program:'Aerospace Engineering / Computer Science',degree:'M.S.',cat:'space',region:'kr',country:'South Korea',tuition:'Free + stipend (scholarship)',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — apply by Sep 2026',ind:4,desc:'Known as the MIT of Asia. Hanwha Aerospace has a joint Space Research Center on campus. Research in satellite systems, laser ISL, and autonomous systems. Full scholarship auto-considered on admission. Strong hiring into Samsung, Hanwha, KARI, and Korean defense sector.',partners:'Hanwha Aerospace · Samsung · KARI · Korea Aerospace Industries',url:'https://ae.kaist.ac.kr/',note:'Scholarship auto-considered but not guaranteed. Industry hiring skews domestic (Korea) — plan to stay in Korea to fully leverage the network.'},
+  {id:'postech',uni:'POSTECH',program:'Computer Science & Engineering',degree:'M.S.',cat:'compute',region:'kr',country:'South Korea',tuition:'~$7,400/yr + lab assistantship',tc:'cf-low',dur:'2 years',lang:'English (85% courses)',status:'open',sl:'Open — biannual intake',ind:3,desc:'Ranked #102 globally (QS 2026). ~85% of graduate courses in English. Lab assistantship typically covers tuition + stipend. GKS (Korean Government Scholarship) available. LG Electronics draws heavily from POSTECH for R&D; over 10% of LG R&D hold POSTECH degrees.',partners:'LG Electronics · POSCO · Samsung SDI · SK Hynix',url:'https://adm-g.postech.ac.kr/ENG/',note:'Settlement allowance provided to new international students for relocation. Lab assistantship usually covers all costs — secure a professor contact first.'},
+  {id:'ntu-sg',uni:'NTU Singapore',program:'MSc Aerospace Engineering / MSc Computer Science',degree:'M.Sc.',cat:'space',region:'sg',country:'Singapore',tuition:'~SGD 17,650–20,200/yr',tc:'cf-high',dur:'1–2 years',lang:'English',status:'open',sl:'Open — July/January intakes',ind:4,desc:'QS #15 globally. MAE school offers MSc Aerospace Engineering with space systems content. Strong MOE Tuition Grant (requires 3-year Singapore work bond) can halve costs significantly. Excellent access to Singapore\'s aerospace sector (ST Engineering, Airbus Singapore, SAF)',partners:'ST Engineering · Airbus Singapore · DSO National Labs · A*STAR',url:'https://www.ntu.edu.sg/mae/admissions/graduate-programmes',note:'MOE Tuition Grant reduces fees significantly but requires 3-year work bond in Singapore after graduation. Strong aerospace industry presence in Singapore.'},
+  {id:'nthu',uni:'National Tsing Hua University (NTHU)',program:'Institute of Space Science / HPC & Scientific Computing',degree:'M.S.',cat:'compute',region:'tw',country:'Taiwan',tuition:'~TWD 58,000–168,000/yr (~₹1.6–4.5L)',tc:'cf-low',dur:'2 years',lang:'English (select programs)',status:'open',sl:'Open — annual intake',ind:3,desc:'Taiwan\'s leading science and engineering university. NTHU has dedicated space science and HPC research groups. MOE Taiwan Scholarship available for full funding. Low tuition + affordable living (~TWD 10,000–15,000/month). Growing space sector via NSPO (National Space Program Office).',partners:'NSPO · ITRI · MediaTek · TSMC · Industrial Technology Research Institute',url:'https://www.nthu.edu.tw/admissions/graduate',note:'MOE Taiwan Scholarship covers tuition + NTD 15,000/month living allowance. Taiwan space sector growing fast — good placement prospects post-graduation.'},
+  {id:'nus',uni:'National University of Singapore (NUS)',program:'MSc Electrical Engineering / Computer Science',degree:'M.Sc.',cat:'compute',region:'sg',country:'Singapore',tuition:'~SGD 26,678–40,800/yr',tc:'cf-high',dur:'1–2 years',lang:'English',status:'open',sl:'Open — August intake',ind:4,desc:'QS #8 globally. Strong computational engineering and systems research programs. SINGA scholarship (for research-based track) is fully funded. MOE Tuition Grant available (3-year work bond). Excellent industry access across Singapore tech cluster.',partners:'DSO · A*STAR · Micron · Qualcomm · Google Singapore',url:'https://www.nus.edu.sg/admissions/graduate',note:'SINGA scholarship available for research-track students — fully funded. MOE Tuition Grant for coursework track requires 3-year work bond in Singapore. Living costs high (~SGD 1,500–2,000/month).'}
+];
+
+const groupMeta={
+  space:{label:'Space & Satellite Programs',icon:'🛰'},
+  hpc:{label:'High Performance Computing',icon:'⚡'},
+  neuro:{label:'Computational Neuroscience',icon:'🧠'},
+  compute:{label:'Scientific Computing & CS',icon:'📐'}
+};
+
+let activeType='all',activeRegion='all';
+
+function setFilter(axis,val,btn){
+  if(axis==='type'){
+    activeType=val;
+    document.querySelectorAll('#type-filters .filter-btn').forEach(b=>b.classList.remove('active'));
+  } else {
+    activeRegion=val;
+    document.querySelectorAll('#region-filters .filter-btn').forEach(b=>b.classList.remove('active'));
+  }
+  btn.classList.add('active');
+  render();
+}
+
+function dots(n){
+  let h='<div class="idots">';
+  for(let i=1;i<=5;i++) h+=`<div class="id ${i<=n?'idf':'ide'}"></div>`;
+  return h+'</div>';
+}
+
+function sdot(s){
+  const m={open:'dg',closing:'da',closed:'dr'};
+  return `<span class="dot ${m[s]||'dg'}"></span>`;
+}
+
+function cardHTML(p){
+  const cb={space:'b-space',hpc:'b-hpc',neuro:'b-neuro',compute:'b-compute'};
+  const indLabel=['','Minimal','Low','Moderate','Strong','Structural'][p.ind];
+  return `<div class="card c-${p.cat}">
+    <div class="card-top">
+      <div class="card-left">
+        <div class="uni-name">${p.uni}</div>
+        <div class="program-name">${p.program} <span style="font-size:.7rem;font-weight:400;color:var(--muted)">${p.degree}</span></div>
+      </div>
+      <div class="card-badges">
+        <span class="badge ${cb[p.cat]||''}">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</span>
+        <span class="badge b-country">${p.country}</span>
+      </div>
+    </div>
+    <div class="card-meta">
+      <span class="meta-pill">${sdot(p.status)} ${p.sl}</span>
+      <span class="meta-pill">⏱ ${p.dur}</span>
+      <span class="meta-pill">💬 ${p.lang}</span>
+      <span class="meta-pill cf ${p.tc}">🎓 ${p.tuition}</span>
+    </div>
+    <div class="card-desc">${p.desc}</div>
+    ${p.note?`<div class="note-box">⚠ ${p.note}</div>`:''}
+    <div class="card-footer">
+      <div class="industry-row">
+        <span style="font-size:.66rem;color:#475569;font-weight:500">Industry:</span>
+        ${dots(p.ind)}
+        <span style="font-size:.66rem;color:var(--muted)">${indLabel}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.28rem">
+        <div style="font-size:.62rem;color:var(--muted);text-align:right;max-width:280px;line-height:1.4">${p.partners}</div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="link-btn">Open Page <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const list=document.getElementById('card-list');
+  let filtered=programs.filter(p=>{
+    const typeOk = activeType==='all' || (activeType==='free'?p.tc==='cf-free':p.cat===activeType);
+    const regionOk = activeRegion==='all' || p.region===activeRegion;
+    return typeOk && regionOk;
+  });
+
+  if(!filtered.length){
+    list.innerHTML='<div class="empty">No programs match this combination of filters.</div>';
+    return;
+  }
+
+  if(['space','hpc','neuro','compute'].includes(activeType) || activeRegion!=='all'){
+    list.innerHTML=filtered.map(cardHTML).join('');
+    return;
+  }
+
+  const groups={};
+  filtered.forEach(p=>{if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+  let html='';
+  ['space','hpc','neuro','compute'].forEach(cat=>{
+    if(!groups[cat])return;
+    const m=groupMeta[cat];
+    html+=`<div class="section-group"><div class="section-label">${m.icon} ${m.label}</div>${groups[cat].map(cardHTML).join('')}</div>`;
+  });
+  list.innerHTML=html;
+}
+
+render();
+</script>
+</body>
+</html>
