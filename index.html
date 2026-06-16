@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Masters Programs Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080c14;--surface:#0d1220;--surface2:#111827;
+  --border:rgba(99,179,237,0.12);--border-hover:rgba(99,179,237,0.35);
+  --accent:#3b82f6;--accent2:#06b6d4;
+  --text:#e2e8f0;--muted:#64748b;
+  --green:#10b981;--amber:#f59e0b;--red:#ef4444;
+}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1rem}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%,rgba(255,255,255,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 10%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 50% 60%,rgba(255,255,255,.25) 0%,transparent 100%),
+    radial-gradient(1px 1px at 10% 80%,rgba(255,255,255,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 70%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 35% 90%,rgba(255,255,255,.15) 0%,transparent 100%),
+    radial-gradient(1px 1px at 65% 20%,rgba(255,255,255,.35) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 75% 85%,rgba(255,255,255,.25) 0%,transparent 100%)}
+.wrapper{max-width:960px;margin:0 auto;position:relative;z-index:1}
+.header{text-align:center;margin-bottom:1.75rem}
+.header-eyebrow{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--accent2);text-transform:uppercase;margin-bottom:.6rem;opacity:.8}
+.header h1{font-size:clamp(1.4rem,4vw,2.1rem);font-weight:700;line-height:1.2;background:linear-gradient(135deg,#e2e8f0 0%,#93c5fd 50%,#c4b5fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem}
+.header p{color:var(--muted);font-size:.82rem}
+.stats-bar{display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.stat{text-align:center}
+.stat-num{font-family:'Space Mono',monospace;font-size:1.35rem;font-weight:700;color:#93c5fd}
+.stat-label{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.filter-section{margin-bottom:1.5rem}
+.filter-label{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.filter-bar{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem}
+.filter-btn{font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:500;padding:.28rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .18s;letter-spacing:.02em}
+.filter-btn:hover{border-color:var(--border-hover);color:var(--text)}
+.filter-btn.active{background:rgba(59,130,246,.15);border-color:var(--accent);color:#93c5fd}
+.section-label{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;padding-left:.2rem;display:flex;align-items:center;gap:.5rem}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-group{margin-bottom:1.6rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.25rem;margin-bottom:.6rem;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent-line,transparent);border-radius:14px 14px 0 0}
+.card:hover{border-color:var(--border-hover);background:var(--surface2)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.45rem}
+.card-left{flex:1;min-width:0}
+.uni-name{font-size:.65rem;font-weight:500;color:var(--accent2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.18rem;font-family:'Space Mono',monospace}
+.program-name{font-size:.92rem;font-weight:600;color:var(--text);line-height:1.3}
+.card-badges{display:flex;flex-direction:column;align-items:flex-end;gap:.28rem;flex-shrink:0}
+.badge{font-size:.6rem;font-weight:600;padding:.15rem .48rem;border-radius:999px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.b-space  {background:rgba(6,182,212,.12);  color:#67e8f9;border:1px solid rgba(6,182,212,.25)}
+.b-hpc    {background:rgba(139,92,246,.12); color:#c4b5fd;border:1px solid rgba(139,92,246,.25)}
+.b-neuro  {background:rgba(16,185,129,.12); color:#6ee7b7;border:1px solid rgba(16,185,129,.25)}
+.b-compute{background:rgba(249,115,22,.12); color:#fdba74;border:1px solid rgba(249,115,22,.25)}
+.b-country{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+.card-meta{display:flex;flex-wrap:wrap;gap:.32rem;margin-bottom:.6rem}
+.meta-pill{font-size:.66rem;padding:.1rem .48rem;border-radius:6px;background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--border);display:flex;align-items:center;gap:.28rem}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dg{background:var(--green)}.da{background:var(--amber)}.dr{background:var(--red)}
+.card-desc{font-size:.78rem;color:#94a3b8;line-height:1.6;margin-bottom:.75rem}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
+.industry-row{display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--muted)}
+.idots{display:flex;gap:3px}
+.id{width:8px;height:8px;border-radius:50%}
+.idf{background:var(--accent)}
+.ide{background:rgba(99,179,237,.15);border:1px solid rgba(99,179,237,.2)}
+.link-btn{display:inline-flex;align-items:center;gap:.28rem;font-size:.72rem;font-weight:500;color:#93c5fd;text-decoration:none;padding:.26rem .68rem;border-radius:8px;border:1px solid rgba(59,130,246,.25);background:rgba(59,130,246,.06);transition:all .18s;font-family:'Space Grotesk',sans-serif}
+.link-btn:hover{background:rgba(59,130,246,.14);border-color:rgba(59,130,246,.5);color:#bfdbfe}
+.link-btn svg{width:11px;height:11px;opacity:.7}
+.c-space  {--accent-line:linear-gradient(90deg,#06b6d4,#0891b2)}
+.c-hpc    {--accent-line:linear-gradient(90deg,#8b5cf6,#6d28d9)}
+.c-neuro  {--accent-line:linear-gradient(90deg,#10b981,#059669)}
+.c-compute{--accent-line:linear-gradient(90deg,#f97316,#ea580c)}
+.note-box{font-size:.72rem;color:var(--amber);background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:.42rem .68rem;margin-bottom:.75rem}
+.cf{font-size:.66rem;font-weight:600;padding:.13rem .48rem;border-radius:6px}
+.cf-free{background:rgba(16,185,129,.12);color:#6ee7b7;border:1px solid rgba(16,185,129,.2)}
+.cf-low {background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.2)}
+.cf-high{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.2)}
+.empty{text-align:center;color:var(--muted);padding:3rem;font-size:.85rem}
+@media(max-width:600px){.card-top{flex-direction:column}.card-badges{flex-direction:row;flex-wrap:wrap}.card-footer{flex-direction:column;align-items:flex-start}.stats-bar{gap:.9rem}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="header-eyebrow">Global Graduate Program Tracker</div>
+    <h1>Masters in Space, HPC &amp; Computing</h1>
+    <p>17 verified programs across Europe, Asia &amp; more — with direct links</p>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">17</div><div class="stat-label">Programs</div></div>
+    <div class="stat"><div class="stat-num">13</div><div class="stat-label">Countries</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Free / funded</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Space programs</div></div>
+  </div>
+  <div class="filter-section">
+    <div class="filter-label">Filter by type</div>
+    <div class="filter-bar" id="type-filters">
+      <button class="filter-btn active" onclick="setFilter('type','all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('type','space',this)">🛰 Space & Satellite</button>
+      <button class="filter-btn" onclick="setFilter('type','hpc',this)">⚡ HPC</button>
+      <button class="filter-btn" onclick="setFilter('type','neuro',this)">🧠 Neuroscience</button>
+      <button class="filter-btn" onclick="setFilter('type','compute',this)">📐 Scientific Computing</button>
+      <button class="filter-btn" onclick="setFilter('type','free',this)">✅ Free / Funded only</button>
+    </div>
+    <div class="filter-label">Filter by region</div>
+    <div class="filter-bar" id="region-filters">
+      <button class="filter-btn active" onclick="setFilter('region','all',this)">All regions</button>
+      <button class="filter-btn" onclick="setFilter('region','de',this)">🇩🇪 Germany</button>
+      <button class="filter-btn" onclick="setFilter('region','eu',this)">🇪🇺 Europe (other)</button>
+      <button class="filter-btn" onclick="setFilter('region','uk',this)">🇬🇧 UK / Scotland</button>
+      <button class="filter-btn" onclick="setFilter('region','ch',this)">🇨🇭 Switzerland</button>
+      <button class="filter-btn" onclick="setFilter('region','jp',this)">🇯🇵 Japan</button>
+      <button class="filter-btn" onclick="setFilter('region','kr',this)">🇰🇷 South Korea</button>
+      <button class="filter-btn" onclick="setFilter('region','sg',this)">🇸🇬 Singapore</button>
+      <button class="filter-btn" onclick="setFilter('region','tw',this)">🇹🇼 Taiwan</button>
+      <button class="filter-btn" onclick="setFilter('region','vn',this)">🇻🇳 Vietnam</button>
+    </div>
+  </div>
+  <div id="card-list"></div>
+</div>
+<script>
+const programs=[
+  {id:'emss',uni:'HS Bremen + Gdańsk Tech',program:'Engineering & Management of Space Systems',degree:'M.Sc.',cat:'space',region:'de',country:'Germany / Poland',tuition:'Free',tc:'cf-free',dur:'3 semesters',lang:'English',status:'open',sl:'Open — apply Dec 15–Jan 15',ind:5,desc:'Double-degree with annual industry week at Airbus, OHB, ArianeGroup & DLR. Airbus engineers guest-lecture every semester. Master thesis typically done with industry partner. Direct alumni pipeline into Bremen space cluster.',partners:'Airbus · OHB · ArianeGroup · DLR · ESA-ESOC',url:'https://www.hs-bremen.de/en/study/degree-programme/engineering-and-management-of-space-systems-msc/#c13569',note:null},
+  {id:'satec',uni:'University of Würzburg',program:'Satellite Technology — Advanced Space Systems (SaTec)',degree:'M.Sc.',cat:'space',region:'de',country:'Germany',tuition:'Free',tc:'cf-free',dur:'4 semesters',lang:'English',status:'closing',sl:'⚠ Last intake WS 2026/27',ind:5,desc:'Würzburg operates 13 satellites in orbit. Internships at DLR, ESA, Airbus, and IABG are standard. Students have won ESA challenges and MIT prizes. Embedded in Bavaria\'s space ecosystem via ZfT and S4 Space spin-off.',partners:'DLR · ESA · Airbus · IABG · ZfT · S4 Space GmbH',url:'https://www.uni-wuerzburg.de/satec',note:'Programme ending — WS 2026/27 is last intake. Consider new MSc Aerospace Informatics at Würzburg as successor.'},
+  {id:'mse',uni:'TU Berlin',program:'Space Engineering (MSE)',degree:'M.Sc.',cat:'space',region:'de',country:'Germany',tuition:'€24,900 total (2 yrs)',tc:'cf-high',dur:'4 semesters',lang:'English',status:'open',sl:'Open — April starts',ind:4,desc:'Project-oriented continuing education MSc from TU Berlin\'s Chair of Space Technology — a world leader in small satellites. Covers space system design, robotics, mission operations, debris removal. Requires 1+ year work experience. ESA Academic Scholarship can offset tuition.',partners:'Airbus · ESA · OHB · DLR · Berlin space cluster',url:'https://www.tu.berlin/en/studying/study-programs/all-programs-offered/study-course/space-engineering-m-sc',note:'Paid programme (€24,900 total). Requires min. 1 year work experience — you qualify. ESA Academic Scholarship available for eligible candidates.'},
+  {id:'spacemaster',uni:'Luleå University of Technology + partners',program:'SpaceMaster — Space Science & Technology',degree:'M.Sc. (Erasmus Mundus)',cat:'space',region:'eu',country:'Sweden / France / UK / Czech Rep.',tuition:'Free w/ Erasmus scholarship',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — apply Oct–Jan',ind:4,desc:'ESA-backed Erasmus Mundus double degree spanning Luleå (Sweden), Toulouse, Cranfield (UK), and Czech TU. Hands-on with stratospheric balloons, rockets, radar, and satellite control. Erasmus Mundus scholarship covers tuition + €1,400/month stipend + travel.',partners:'ESA · Honeywell · EADS · Cranfield · Toulouse · Czech TU',url:'https://www.spacemaster.eu/spacemaster/programme',note:'Without Erasmus Mundus scholarship, non-EU tuition applies. Apply Oct–Jan for September start.'},
+  {id:'tudelft',uni:'TU Delft',program:'Aerospace Engineering — Space Flight track',degree:'M.Sc.',cat:'space',region:'eu',country:'Netherlands',tuition:'~€21,500/yr (intl)',tc:'cf-high',dur:'2 years',lang:'English',status:'open',sl:'Open — February deadline',ind:4,desc:'Europe\'s top aerospace faculty. Space Flight track covers orbital mechanics, satellite design, and re-entry systems. Facilities include wind tunnels up to Mach 11, clean room for satellite development, Delfi satellite series, and a Cessna flying lab.',partners:'ESA · Airbus Netherlands · SRON · NLR · AVIO',url:'https://www.tudelft.nl/en/education/programmes/masters/ae/msc-aerospace-engineering',note:'High tuition (~€21,500/yr) for non-EU. Check Holland Scholarship and Justus & Louise van Effen Excellence Scholarships.'},
+  {id:'usth',uni:'USTH — University of Science & Technology Hanoi',program:'Space: Earth Observation, Astrophysics & Satellite Technologies',degree:'M.Sc.',cat:'space',region:'vn',country:'Vietnam',tuition:'Very low (scholarships avail.)',tc:'cf-free',dur:'2 years',lang:'English',status:'open',sl:'Open — contact USTH',ind:3,desc:'Only space Masters in Vietnam. Co-accredited by Vietnam and France — dual degree from USTH + partner French university (Paris Cité, Observatoire de Paris, or Paris-Est Créteil). 80% of students intern in Europe annually. Taught by French and Vietnamese lecturers with CNES and VNSC support.',partners:'VNSC · CNES · Space Technology Institute · Paris Cité · Observatoire de Paris',url:'https://usth.edu.vn/en/master-in-space-remote-sensing-astrophysics-satellite-technology-5143/',note:'Scholarships covering up to 100% of tuition available. Possibility of 100% funded internship in France. Very affordable base fees.'},
+  {id:'bccn',uni:'BCCN Berlin (TU Berlin + HU Berlin)',program:'Computational Neuroscience',degree:'M.Sc.',cat:'neuro',region:'de',country:'Germany',tuition:'Free',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — only 15 seats',ind:2,desc:'Research-intensive, interdisciplinary program across neurobiology, maths, CS and physics. Strong PhD pathway into Charité, MPI, and computational biotech. Industry connection is secondary — primarily an academic/research track.',partners:'Charité · Max Planck Institute · Einstein Foundation',url:'https://www.bccn-berlin.de/master-program.html',note:'Biggest gap from CS/backend background. Requires neuroscience exposure. Only 15 seats globally — very competitive.'},
+  {id:'scicomp',uni:'TU Berlin',program:'Scientific Computing',degree:'M.Sc.',cat:'compute',region:'de',country:'Germany',tuition:'Free',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — no numerus clausus',ind:3,desc:'Open admission MSc in numerical methods, simulation and applied mathematics. Flexible curriculum, strong maths foundation needed. Industry ties via TU Berlin\'s broad engineering network — Siemens, SAP, Berlin tech cluster.',partners:'Siemens · Fraunhofer · Berlin tech cluster',url:'https://www.tu.berlin/en/studying/study-programs/all-programs-offered/study-course/scientific-computing-m-sc',note:'No NC but strong motivation letter essential. Show mathematical depth explicitly.'},
+  {id:'hpc',uni:'FAU Erlangen-Nürnberg (EU Consortium)',program:'EUMaster4HPC — High Performance Computing',degree:'M.Sc.',cat:'hpc',region:'de',country:'Germany + 9 EU unis',tuition:'Free + mobility scholarships',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — apply by July 15, 2026',ind:5,desc:'Funded by EuroHPC JU. 42 partners including Siemens, Airbus, Fraunhofer, Max Planck, BSC, CINECA, Inria. Internship embedded across European supercomputing centres. Best fit for distributed systems background. Study at 2 universities across Europe.',partners:'Siemens · Airbus · Fraunhofer · BSC · CINECA · Max Planck · Inria · CEA · ONERA',url:'https://www.ce.studium.fau.eu/prospective-students/m-sc-program/eumaster4hpc/#panel_add33d87',note:null},
+  {id:'edhpc',uni:'University of Edinburgh — EPCC',program:'High Performance Computing',degree:'M.Sc.',cat:'hpc',region:'uk',country:'Scotland / UK',tuition:'~£18–22k/yr (intl)',tc:'cf-high',dur:'1 year',lang:'English',status:'open',sl:'Open — September intake',ind:4,desc:'EPCC is the UK\'s leading supercomputing centre. Hands-on access to ARCHER2 (UK national supercomputer), Cirrus Tier-2, and GPU/FPGA clusters. Practically-focused — alumni hired by ARM, Intel, Amazon, and MathWorks.',partners:'ARM · Intel · Amazon · MathWorks · ARCHER2 · DiRAC',url:'https://study.ed.ac.uk/programmes/postgraduate-taught/187-high-performance-computing',note:'High tuition (~£18–22k/yr) for international students. Check Edinburgh Global Research Scholarships and EPCC bursaries. Also available as 2- or 3-year part-time online.'},
+  {id:'eth',uni:'ETH Zürich',program:'Robotics, Systems & Control / Computational Science',degree:'M.Sc.',cat:'compute',region:'ch',country:'Switzerland',tuition:'~CHF 1,460/yr (~₹1.3L)',tc:'cf-low',dur:'18 months',lang:'English',status:'open',sl:'Open — competitive admission',ind:4,desc:'Ranked #7 globally (QS 2025). MSc in Robotics, Systems & Control and Computational Science & Engineering are the best fits. Extremely low tuition for a world top-10 university. Strong industry ties with ABB, Google Zürich, Microsoft Research, and Swiss space sector.',partners:'ABB · Google Zürich · Microsoft Research · RUAG Space · ESA-ESTEC',url:'https://ethz.ch/en/studies/master/application.html',note:'Living costs in Zürich are high (~CHF 2,000–2,500/month). ESOP scholarship available for exceptional candidates.'},
+
+  {id:'tohoku',uni:'Tohoku University',program:'Information Sciences / System Information Science',degree:'M.S.',cat:'compute',region:'jp',country:'Japan',tuition:'~JPY 535,800/yr (~₹3L)',tc:'cf-low',dur:'2 years',lang:'English (select programs)',status:'open',sl:'Open — MEXT scholarship route',ind:3,desc:'Japan\'s #3 university (THE). Graduate School of Information Sciences offers English-track programs covering AI, HPC, quantum computing, and data science. MEXT scholarship fully covers tuition + ~¥145,000/month stipend. Alumni at Hitachi, Mitsubishi, Canon, Fujitsu.',partners:'Hitachi · Mitsubishi · Canon · Fujitsu · RIKEN',url:'https://www.insc.tohoku.ac.jp/english/',note:'Contact a professor first before applying — Japanese system requires prior lab agreement. MEXT scholarship covers all fees + stipend if awarded.'},
+  {id:'kaist',uni:'KAIST',program:'Aerospace Engineering / Computer Science',degree:'M.S.',cat:'space',region:'kr',country:'South Korea',tuition:'Free + stipend (scholarship)',tc:'cf-free',dur:'4 semesters',lang:'English',status:'open',sl:'Open — apply by Sep 2026',ind:4,desc:'Known as the MIT of Asia. Hanwha Aerospace has a joint Space Research Center on campus. Research in satellite systems, laser ISL, and autonomous systems. Full scholarsh
